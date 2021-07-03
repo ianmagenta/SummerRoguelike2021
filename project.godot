@@ -9,13 +9,61 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "Action",
+"language": "GDScript",
+"path": "res://scripts/actions/Action.gd"
+}, {
+"base": "Node",
+"class": "DungeonGenerator",
+"language": "GDScript",
+"path": "res://scenes/game/DungeonGenerator.gd"
+}, {
+"base": "Action",
+"class": "EndTurn",
+"language": "GDScript",
+"path": "res://scripts/actions/EndTurn.gd"
+}, {
 "base": "Node2D",
 "class": "Entity",
 "language": "GDScript",
 "path": "res://scripts/entities/Entity.gd"
+}, {
+"base": "Node2D",
+"class": "GridManager",
+"language": "GDScript",
+"path": "res://scenes/game/GridManager.gd"
+}, {
+"base": "Action",
+"class": "Move",
+"language": "GDScript",
+"path": "res://scripts/actions/Move.gd"
+}, {
+"base": "Node",
+"class": "PlayerController",
+"language": "GDScript",
+"path": "res://scenes/game/PlayerController.gd"
+}, {
+"base": "Action",
+"class": "StartTurn",
+"language": "GDScript",
+"path": "res://scripts/actions/StartTurn.gd"
+}, {
+"base": "Node",
+"class": "TurnLoop",
+"language": "GDScript",
+"path": "res://scenes/game/TurnLoop.gd"
 } ]
 _global_script_class_icons={
-"Entity": ""
+"Action": "",
+"DungeonGenerator": "",
+"EndTurn": "",
+"Entity": "",
+"GridManager": "",
+"Move": "",
+"PlayerController": "",
+"StartTurn": "",
+"TurnLoop": ""
 }
 
 [application]
@@ -23,6 +71,10 @@ _global_script_class_icons={
 config/name="SummerRoguelike2021"
 run/main_scene="res://scenes/world/World.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Actions="*res://scripts/singletons/Actions.gd"
 
 [display]
 
@@ -57,6 +109,42 @@ texture={
 "svg/scale": 1.0
 }
 
+[input]
+
+ui_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_undo={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
 [physics]
 
 common/enable_pause_aware_picking=true
@@ -65,3 +153,4 @@ common/enable_pause_aware_picking=true
 
 2d/snapping/use_gpu_pixel_snap=true
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=false
