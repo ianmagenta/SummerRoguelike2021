@@ -1,7 +1,7 @@
 extends TileMap
 class_name Room
 
-export(int, 1, 100) var challenge_rating = 1
+export(int, 0, 100) var challenge_rating = 0
 
 var entity_array = [preload("res://scenes/entities/Player.tscn")]
 var room_offsets = [Vector2(0,0), Vector2(6,0), Vector2(12,0), Vector2(0,6), Vector2(6,6), Vector2(12,6), Vector2(0,12), Vector2(6,12), Vector2(12,12)]

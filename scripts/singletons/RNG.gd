@@ -25,5 +25,7 @@ func shuffle(array: Array, rng: RandomNumberGenerator):
 		array[i] = tmp
 
 func peek_random(array: Array, rng: RandomNumberGenerator):
-	if !array: return null
-	return array[rng.randi() % array.size()]
+	var array_size = array.size()
+	if array_size:
+		return array[rng.randi() % array_size]
+	return null
