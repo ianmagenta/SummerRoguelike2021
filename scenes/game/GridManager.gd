@@ -9,8 +9,6 @@ const map_rect = Rect2(Vector2(1,1), Vector2(17, 17))
 const _entity_map = {}
 # dot cell
 const dot_cell = 0
-# door gaps
-const door_gaps := [Vector2(6,3), Vector2(12,3), Vector2(3,6), Vector2(9,6), Vector2(15, 6), Vector2(6,9), Vector2(12,9), Vector2(3,12), Vector2(9,12), Vector2(15,12), Vector2(6,15), Vector2(12,15)]
 
 onready var ui_grid = get_node("UIGrid")
 onready var entity_manager = get_node("EntityManager")
@@ -20,15 +18,14 @@ func _ready():
 	var map_rect_size = map_rect.size
 	for x in range(map_rect.position.x, map_rect_size.x + 1):
 		for y in range(map_rect.position.y, map_rect_size.y + 1):
-			if ui_grid.get_cell(x, y) == -1:
-				var id: int = astar.get_available_point_id()
-				var grid_position = Vector2(x, y)
-				astar.add_point(id, grid_position)
-				ui_grid.set_cellv(grid_position, dot_cell)
-				if x != map_rect.position.x and ui_grid.get_cell(x - 1, y) < 1:
-					astar.connect_points(id, astar.get_closest_point(Vector2(x - 1, y)))
-				if y != map_rect.position.y and ui_grid.get_cell(x, y - 1) < 1:
-					astar.connect_points(id, astar.get_closest_point(Vector2(x, y - 1)))
+			var id: int = astar.get_available_point_id()
+			var grid_position = Vector2(x, y)
+			astar.add_point(id, grid_position)
+			ui_grid.set_cellv(grid_position, dot_cell)
+			if x != map_rect.position.x:
+				astar.connect_points(id, astar.get_closest_point(Vector2(x - 1, y)))
+			if y != map_rect.position.y:
+				astar.connect_points(id, astar.get_closest_point(Vector2(x, y - 1)))
 
 # For inserting new items into the database
 func add_entity(entity: Entity) -> void:
@@ -74,7 +71,7 @@ func remove_entity(entity_to_remove: Entity) -> void:
 	var _successfull_erase = _entity_map.erase(grid_position)
 
 func is_position_valid(new_position: Vector2) -> bool:
-	if map_rect.has_point(new_position) and ui_grid.get_cellv(new_position) < 1:
+	if map_rect.has_point(new_position):
 		return true
 	return false
 

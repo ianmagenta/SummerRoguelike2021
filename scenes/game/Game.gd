@@ -1,15 +1,15 @@
 extends Node2D
 
 onready var player_controller = get_node("PlayerController")
-onready var grid_manager = get_node("GridManager")
-onready var dungeon_generator = get_node("DungeonGenerator")
+onready var floor_manager = get_node("FloorManager")
+onready var grid_manager = get_node("FloorManager/GridManager")
 onready var turn_loop = get_node("TurnLoop")
 
 func _ready():
 	var _successfull_connect = Actions.connect("turn_undone", self, "start_turn")
 	player_controller.connect("player_request_move", self, "_on_player_request_move")
 	RNG.start_rng()
-	dungeon_generator.generate_dungeon(grid_manager)
+	floor_manager.generate_floor()
 	start_turn()
 
 func _on_player_request_move(move: Vector2, player: Entity) -> void:
