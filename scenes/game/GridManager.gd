@@ -9,6 +9,8 @@ const map_rect = Rect2(Vector2(1,1), Vector2(17, 17))
 const _entity_map = {}
 # dot cell
 const dot_cell = 0
+# door gaps
+const door_gaps := [Vector2(6,3), Vector2(12,3), Vector2(3,6), Vector2(9,6), Vector2(15, 6), Vector2(6,9), Vector2(12,9), Vector2(3,12), Vector2(9,12), Vector2(15,12), Vector2(6,15), Vector2(12,15)]
 
 onready var ui_grid = get_node("UIGrid")
 onready var entity_manager = get_node("EntityManager")
@@ -49,7 +51,7 @@ func move_entity(moving_entity: Entity, new_position: Vector2):
 			ui_grid.set_cellv(old_position, dot_cell)
 			ui_grid.set_cellv(new_position, -1)
 			_entity_map[new_position] = moving_entity
-			_entity_map.erase(old_position)
+			var _successfull_erase = _entity_map.erase(old_position)
 			var old_point = astar.get_closest_point(old_position)
 			var new_point = astar.get_closest_point(new_position)
 			astar.set_point_weight_scale(old_point, 1.0)
@@ -69,7 +71,7 @@ func remove_entity(entity_to_remove: Entity) -> void:
 	var grid_position: Vector2 = entity_to_remove.grid_position
 	astar.set_point_weight_scale(astar.get_closest_point(grid_position), 1.0)
 	ui_grid.set_cellv(grid_position, dot_cell)
-	_entity_map.erase(grid_position)
+	var _successfull_erase = _entity_map.erase(grid_position)
 
 func is_position_valid(new_position: Vector2) -> bool:
 	if map_rect.has_point(new_position) and ui_grid.get_cellv(new_position) < 1:
@@ -82,3 +84,7 @@ func find_valid_direction(current_position: Vector2) -> Vector2:
 	for direction in random_directions:
 		if is_position_valid(direction + current_position): return direction
 	return Vector2(0, 0)
+
+func clear_entities() -> void:
+	for child in entity_manager.get_children():
+		(child as Node).free()

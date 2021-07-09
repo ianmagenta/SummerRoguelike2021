@@ -24,10 +24,11 @@ func execute() -> bool:
 	# grid encounter resolution
 	if grid_manager.is_position_valid(move):
 		if entity_in_space:
-			# entity interactions
+			if (entity_in_space as Entity).is_in_group("interactable"):
+				entity_in_space.interact()
 			Actions.queue(EndTurn.new(turn_loop, player_controller))
 		else:
-			Actions.queue(EndTurn.new(turn_loop, player_controller))			
+			Actions.queue(EndTurn.new(turn_loop, player_controller))
 			return true
 	return false
 
