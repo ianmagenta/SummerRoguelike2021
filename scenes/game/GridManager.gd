@@ -9,6 +9,8 @@ const map_rect = Rect2(Vector2(1,1), Vector2(17, 17))
 const _entity_map = {}
 # dot cell
 const dot_cell = 0
+const horz_door_gaps = [Vector2(3,6), Vector2(9,6), Vector2(15,6), Vector2(3,12), Vector2(9,12), Vector2(15,12)]
+const vert_door_gaps = [Vector2(6,3), Vector2(12,3), Vector2(6,9), Vector2(12,9), Vector2(6,15), Vector2(12,15)]
 
 onready var ui_grid = get_node("UIGrid")
 onready var entity_manager = get_node("EntityManager")
@@ -52,6 +54,7 @@ func move_entity(moving_entity: Entity, new_position: Vector2):
 			_entity_map.erase(old_position)
 			var old_point = astar.get_closest_point(old_position)
 			var new_point = astar.get_closest_point(new_position)
+			print(astar.are_points_connected(old_point, new_point))
 			astar.set_point_weight_scale(old_point, 1.0)
 			astar.set_point_weight_scale(new_point, moving_entity.astar_weight)
 			moving_entity.position = ui_grid.map_to_world(new_position)

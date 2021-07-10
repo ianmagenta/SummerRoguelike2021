@@ -7,6 +7,8 @@ var exit_rooms := []
 
 var challenge_rating_bounds := {"min": 2, "max": 2}
 
+onready var grid_manager = get_node("GridManager")
+
 func _ready():
 	var player_path = "res://scenes/rooms/player/"
 	var normal_path = "res://scenes/rooms/normal/"
@@ -24,7 +26,7 @@ func _ready():
 			room[1].append(load(room[0] + file))
 			file = dir.get_next()
 
-func generate_dungeon(grid_manager: Node2D):
+func generate_floor():
 	# part 1 - decide room types and shuflle
 	var rooms = ["player", "normal", "normal", "normal", "normal", "normal", "normal", "normal", "normal"]
 	RNG.shuffle(rooms, RNG.dungeon)
@@ -49,4 +51,13 @@ func generate_dungeon(grid_manager: Node2D):
 				room_instance.free()
 				break
 	
-	# part 4 - add doors (doors only connect rooms upon opening).
+	# part 4 - add doors
+	var door_scene = preload("res://scenes/entities/interactables/Door.tscn")
+	for door_position in grid_manager.horz_door_gaps:
+		var door_instance: Entity = door_scene.instance()
+		door_instance.grid_position = door_position
+		grid_manager.add_entity(door_instance)
+	for door_position in grid_manager.vert_door_gaps:
+		var door_instance: Entity = door_scene.instance()
+		door_instance.grid_position = door_position
+		grid_manager.add_entity(door_instance)
