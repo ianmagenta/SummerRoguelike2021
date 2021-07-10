@@ -27,7 +27,8 @@ func queue(action: Action) -> void:
 func undo_turn() -> void:
 	if _turn_stack:
 		var turn: Array = _turn_stack.pop_back()
-		for action in turn:
+		while turn:
+			var action = turn.pop_back()
 			action.undo()
 		processed_actions.clear()
 		emit_signal("turn_undone")
