@@ -1,4 +1,5 @@
 extends Interactable
 
-func interact(game: Game):
-	print("door time!")
+func interact(data: Dictionary):
+	data.interactable = self
+	Actions.queue(Open.new(data))

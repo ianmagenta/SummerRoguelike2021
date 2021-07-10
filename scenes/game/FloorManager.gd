@@ -1,11 +1,13 @@
 extends Node
-class_name DungeonGenerator
+class_name FloorManager
 
 var player_rooms := []
 var normal_rooms := []
 var exit_rooms := []
 
-var challenge_rating_bounds := {"min": 2, "max": 2}
+var rooms = ["player", "normal", "normal", "normal", "normal", "normal", "normal", "normal", "exit"]
+var floor_entities = [preload("res://scenes/entities/Player.tscn"), preload("res://scenes/entities/interactables/Stairs.tscn")]
+var player_spawn_point: Vector2 = Vector2(0,0)
 
 onready var grid_manager = get_node("GridManager")
 
@@ -28,7 +30,6 @@ func _ready():
 
 func generate_floor():
 	# part 1 - decide room types and shuflle
-	var rooms = ["player", "normal", "normal", "normal", "normal", "normal", "normal", "normal", "normal"]
 	RNG.shuffle(rooms, RNG.dungeon)
 	
 	# part 2 - pick random room to match type
@@ -45,11 +46,14 @@ func generate_floor():
 					room_name = RNG.peek_random(exit_rooms, RNG.dungeon)
 			# part 3 - spawn entities in room
 			var room_instance: Room = room_name.instance()
-			var challenge_rating = room_instance.challenge_rating
-			if !challenge_rating or (challenge_rating >= challenge_rating_bounds.min and challenge_rating <= challenge_rating_bounds.max):
-				room_instance.spawn_entities(grid_manager, room_number)
-				room_instance.free()
-				break
+			var entities = room_instance.collect_entites(floor_entities, room_number)
+			room_instance.free()
+			for entity in entities:
+				if entity.is_in_group("player"):
+					player_spawn_point = entity.grid_position
+					continue
+				grid_manager.add_entity(entity)
+			break
 	
 	# part 4 - add doors
 	var door_scene = preload("res://scenes/entities/interactables/Door.tscn")
@@ -61,3 +65,14 @@ func generate_floor():
 		var door_instance: Entity = door_scene.instance()
 		door_instance.grid_position = door_position
 		grid_manager.add_entity(door_instance)
+
+func clear_floor():
+	var entities = get_tree().get_nodes_in_group("entity")
+	for entity in entities:
+		if !entity.is_in_group("player"):
+			grid_manager.remove_entity(entity)
+			entity.free()
+
+func move_player_to_spawn(player: Entity):
+	print(player_spawn_point)
+	grid_manager.move_entity(player, player_spawn_point)

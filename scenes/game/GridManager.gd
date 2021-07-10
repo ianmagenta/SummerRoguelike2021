@@ -54,7 +54,6 @@ func move_entity(moving_entity: Entity, new_position: Vector2):
 			_entity_map.erase(old_position)
 			var old_point = astar.get_closest_point(old_position)
 			var new_point = astar.get_closest_point(new_position)
-			print(astar.are_points_connected(old_point, new_point))
 			astar.set_point_weight_scale(old_point, 1.0)
 			astar.set_point_weight_scale(new_point, moving_entity.astar_weight)
 			moving_entity.position = ui_grid.map_to_world(new_position)
@@ -73,6 +72,7 @@ func remove_entity(entity_to_remove: Entity) -> void:
 	astar.set_point_weight_scale(astar.get_closest_point(grid_position), 1.0)
 	ui_grid.set_cellv(grid_position, dot_cell)
 	_entity_map.erase(grid_position)
+	entity_manager.remove_child(entity_to_remove)
 
 func is_position_valid(new_position: Vector2) -> bool:
 	if map_rect.has_point(new_position) and ui_grid.get_cellv(new_position) < 1:

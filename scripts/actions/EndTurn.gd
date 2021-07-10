@@ -3,16 +3,18 @@ class_name EndTurn
 
 var turn_loop: TurnLoop
 var player_controller: PlayerController
+var game
 
-func _init(new_turn_loop: TurnLoop, new_player_controller: PlayerController):
-	turn_loop = new_turn_loop
-	player_controller = new_player_controller
+func _init(data: Dictionary):
+	turn_loop = data.game.turn_loop
+	player_controller = data.game.player_controller
+	game = data.game
 
 func execute() -> bool:
 	var turn_loop_entity_queue: Array = turn_loop.entity_queue
 	if !turn_loop_entity_queue or turn_loop_entity_queue.front().is_in_group("player"):
 		Actions.commit_turn()
-	Actions.queue(StartTurn.new(player_controller, turn_loop.pop_turn()))
+	Actions.queue(StartTurn.new({"game": game, "entity": turn_loop.pop_turn()}))
 	return true
 
 func undo() -> void:

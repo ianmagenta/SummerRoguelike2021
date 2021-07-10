@@ -5,6 +5,7 @@ signal turn_undone()
 var processing: bool = false
 var incoming_actions: Array = []
 var processed_actions: Array = []
+var actions_cleared: bool = false
 
 var _turn_stack: Array = []
 
@@ -17,6 +18,10 @@ func queue(action: Action) -> void:
 			if !action.execute():
 				processed_actions.pop_back()
 		incoming_actions.clear()
+		if actions_cleared == true:
+			_turn_stack.clear()
+			processed_actions.clear()
+			actions_cleared = false
 		processing = false
 
 func undo_turn() -> void:
@@ -30,3 +35,6 @@ func undo_turn() -> void:
 func commit_turn() -> void:
 	_turn_stack.append(processed_actions)
 	processed_actions = []
+
+func clear_actions() -> void:
+	actions_cleared = true

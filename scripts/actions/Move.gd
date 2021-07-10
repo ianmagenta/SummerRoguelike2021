@@ -6,28 +6,31 @@ var entity: Entity
 var direction: Vector2
 var turn_loop: TurnLoop
 var player_controller: PlayerController
+var game
 
-func _init(new_player_controller: PlayerController, new_turn_loop: TurnLoop, new_grid_manager: GridManager, new_entity: Entity, new_direction: Vector2):
-	player_controller = new_player_controller
-	turn_loop = new_turn_loop
-	grid_manager = new_grid_manager
-	entity = new_entity
-	direction = new_direction
+func _init(data: Dictionary):
+	player_controller = data.game.player_controller
+	turn_loop = data.game.turn_loop
+	grid_manager = data.game.grid_manager
+	entity = data.entity
+	direction = data.direction
+	game = data.game
 
 func execute() -> bool:
 	var move: Vector2 = entity.grid_position + direction
 	# animations
-	var entity_in_space = grid_manager.move_entity(entity, move)
+	var entity_in_space: Entity = grid_manager.move_entity(entity, move)
 	var animation_player = entity.get_node("AnimationPlayer") as AnimationPlayer
 	if animation_player.is_playing(): animation_player.stop(true)
 	animation_player.play("Move", -1, 7.0)
 	# grid encounter resolution
 	if grid_manager.is_position_valid(move):
 		if entity_in_space:
-			# entity interactions
-			Actions.queue(EndTurn.new(turn_loop, player_controller))
+			if entity_in_space.is_in_group("interactable"):
+				(entity_in_space as Interactable).interact({"game": game, "interacting_entity": entity})
+			Actions.queue(EndTurn.new({"game": game}))
 		else:
-			Actions.queue(EndTurn.new(turn_loop, player_controller))			
+			Actions.queue(EndTurn.new({"game": game}))
 			return true
 	return false
 

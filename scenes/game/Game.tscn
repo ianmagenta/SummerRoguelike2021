@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://resources/tile_sets/main.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/game/GridManager.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/game/Game.gd" type="Script" id=5]
 [ext_resource path="res://scenes/game/FloorManager.gd" type="Script" id=6]
 [ext_resource path="res://scenes/game/TurnLoop.gd" type="Script" id=7]
+[ext_resource path="res://scenes/game/DungeonManager.gd" type="Script" id=8]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 4 )
@@ -76,13 +77,19 @@ __meta__ = {
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource( 3 )
 
-[node name="FloorManager" type="Node2D" parent="."]
+[node name="TurnLoop" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[node name="DungeonManager" type="Node2D" parent="."]
+script = ExtResource( 8 )
+
+[node name="FloorManager" type="Node2D" parent="DungeonManager"]
 script = ExtResource( 6 )
 
-[node name="GridManager" type="Node2D" parent="FloorManager"]
+[node name="GridManager" type="Node2D" parent="DungeonManager/FloorManager"]
 script = ExtResource( 2 )
 
-[node name="UIGrid" type="TileMap" parent="FloorManager/GridManager"]
+[node name="UIGrid" type="TileMap" parent="DungeonManager/FloorManager/GridManager"]
 modulate = Color( 0.94902, 0.94902, 0.941176, 1 )
 position = Vector2( 168, 24 )
 tile_set = ExtResource( 1 )
@@ -91,10 +98,10 @@ cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
 format = 1
 tile_data = PoolIntArray( 0, 1, 65536, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 196608, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 196608, 13, 1, 0, 14, 1, 0, 15, 1, 0, 16, 1, 0, 17, 1, 0, 18, 1, 65537, 65536, 1, 1, 65542, 1, 1, 65548, 1, 1, 65554, 1, 1, 131072, 1, 1, 131078, 1, 1, 131084, 1, 1, 131090, 1, 1, 196608, 1, 1, 196626, 1, 1, 262144, 1, 1, 262150, 1, 1, 262156, 1, 1, 262162, 1, 1, 327680, 1, 1, 327686, 1, 1, 327692, 1, 1, 327698, 1, 1, 393216, 1, 131072, 393217, 1, 0, 393218, 1, 0, 393220, 1, 0, 393221, 1, 0, 393222, 1, 196610, 393223, 1, 0, 393224, 1, 0, 393226, 1, 0, 393227, 1, 0, 393228, 1, 196610, 393229, 1, 0, 393230, 1, 0, 393232, 1, 0, 393233, 1, 0, 393234, 1, 131073, 458752, 1, 1, 458758, 1, 1, 458764, 1, 1, 458770, 1, 1, 524288, 1, 1, 524294, 1, 1, 524300, 1, 1, 524306, 1, 1, 589824, 1, 1, 589842, 1, 1, 655360, 1, 1, 655366, 1, 1, 655372, 1, 1, 655378, 1, 1, 720896, 1, 1, 720902, 1, 1, 720908, 1, 1, 720914, 1, 1, 786432, 1, 131072, 786433, 1, 0, 786434, 1, 0, 786436, 1, 0, 786437, 1, 0, 786438, 1, 196610, 786439, 1, 0, 786440, 1, 0, 786442, 1, 0, 786443, 1, 0, 786444, 1, 196610, 786445, 1, 0, 786446, 1, 0, 786448, 1, 0, 786449, 1, 0, 786450, 1, 131073, 851968, 1, 1, 851974, 1, 1, 851980, 1, 1, 851986, 1, 1, 917504, 1, 1, 917510, 1, 1, 917516, 1, 1, 917522, 1, 1, 983040, 1, 1, 983058, 1, 1, 1048576, 1, 1, 1048582, 1, 1, 1048588, 1, 1, 1048594, 1, 1, 1114112, 1, 1, 1114118, 1, 1, 1114124, 1, 1, 1114130, 1, 1, 1179648, 1, 65538, 1179649, 1, 0, 1179650, 1, 0, 1179651, 1, 0, 1179652, 1, 0, 1179653, 1, 0, 1179654, 1, 196609, 1179655, 1, 0, 1179656, 1, 0, 1179657, 1, 0, 1179658, 1, 0, 1179659, 1, 0, 1179660, 1, 196609, 1179661, 1, 0, 1179662, 1, 0, 1179663, 1, 0, 1179664, 1, 0, 1179665, 1, 0, 1179666, 1, 65539 )
 
-[node name="EntityManager" type="Node2D" parent="FloorManager/GridManager"]
+[node name="EntityManager" type="Node2D" parent="DungeonManager/FloorManager/GridManager"]
 position = Vector2( 168, 24 )
 
-[node name="FOVManager" type="Control" parent="FloorManager/GridManager"]
+[node name="FOVManager" type="Control" parent="DungeonManager/FloorManager/GridManager"]
 visible = false
 modulate = Color( 0.137255, 0.129412, 0.239216, 1 )
 margin_left = 184.0
@@ -105,7 +112,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="FOVSquare1" type="ColorRect" parent="FloorManager/GridManager/FOVManager"]
+[node name="FOVSquare1" type="ColorRect" parent="DungeonManager/FloorManager/GridManager/FOVManager"]
 material = SubResource( 1 )
 margin_right = 80.0
 margin_bottom = 80.0
@@ -113,7 +120,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FOVSquare2" type="ColorRect" parent="FloorManager/GridManager/FOVManager"]
+[node name="FOVSquare2" type="ColorRect" parent="DungeonManager/FloorManager/GridManager/FOVManager"]
 material = SubResource( 2 )
 margin_left = 96.0
 margin_right = 176.0
@@ -122,7 +129,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FOVSquare3" type="ColorRect" parent="FloorManager/GridManager/FOVManager"]
+[node name="FOVSquare3" type="ColorRect" parent="DungeonManager/FloorManager/GridManager/FOVManager"]
 material = SubResource( 3 )
 margin_left = 192.0
 margin_right = 272.0
@@ -131,7 +138,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FOVSquare4" type="ColorRect" parent="FloorManager/GridManager/FOVManager"]
+[node name="FOVSquare4" type="ColorRect" parent="DungeonManager/FloorManager/GridManager/FOVManager"]
 material = SubResource( 4 )
 margin_top = 96.0
 margin_right = 80.0
@@ -140,7 +147,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FOVSquare5" type="ColorRect" parent="FloorManager/GridManager/FOVManager"]
+[node name="FOVSquare5" type="ColorRect" parent="DungeonManager/FloorManager/GridManager/FOVManager"]
 material = SubResource( 5 )
 margin_left = 96.0
 margin_top = 96.0
@@ -150,7 +157,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FOVSquare6" type="ColorRect" parent="FloorManager/GridManager/FOVManager"]
+[node name="FOVSquare6" type="ColorRect" parent="DungeonManager/FloorManager/GridManager/FOVManager"]
 material = SubResource( 6 )
 margin_left = 192.0
 margin_top = 96.0
@@ -160,7 +167,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FOVSquare7" type="ColorRect" parent="FloorManager/GridManager/FOVManager"]
+[node name="FOVSquare7" type="ColorRect" parent="DungeonManager/FloorManager/GridManager/FOVManager"]
 material = SubResource( 7 )
 margin_top = 192.0
 margin_right = 80.0
@@ -169,7 +176,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FOVSquare8" type="ColorRect" parent="FloorManager/GridManager/FOVManager"]
+[node name="FOVSquare8" type="ColorRect" parent="DungeonManager/FloorManager/GridManager/FOVManager"]
 material = SubResource( 8 )
 margin_left = 96.0
 margin_top = 192.0
@@ -179,7 +186,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FOVSquare9" type="ColorRect" parent="FloorManager/GridManager/FOVManager"]
+[node name="FOVSquare9" type="ColorRect" parent="DungeonManager/FloorManager/GridManager/FOVManager"]
 material = SubResource( 9 )
 margin_left = 192.0
 margin_top = 192.0
@@ -188,6 +195,3 @@ margin_bottom = 272.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="TurnLoop" type="Node" parent="."]
-script = ExtResource( 7 )

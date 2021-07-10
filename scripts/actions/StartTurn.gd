@@ -4,9 +4,9 @@ class_name StartTurn
 var player_controller: PlayerController
 var entity: Entity
 
-func _init(new_player_controller: Node, new_entity: Entity):
-	player_controller = new_player_controller
-	entity = new_entity
+func _init(data: Dictionary):
+	player_controller = data.game.player_controller
+	entity = data.entity
 
 func execute() -> bool:
 	if entity.is_in_group("player"):
