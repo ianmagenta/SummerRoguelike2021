@@ -6,7 +6,7 @@ var normal_rooms := []
 var exit_rooms := []
 
 var rooms = ["player", "normal", "normal", "normal", "normal", "normal", "normal", "normal", "exit"]
-var floor_entities = [preload("res://scenes/entities/Player.tscn"), preload("res://scenes/entities/interactables/Stairs.tscn")]
+var floor_entities = [preload("res://scenes/entities/Player.tscn"), preload("res://scenes/entities/interactables/Stairs.tscn"), [preload("res://scenes/entities/enemies/Bat.tscn")]]
 var player_spawn_point: Vector2 = Vector2(0,0)
 
 onready var grid_manager = get_node("GridManager")

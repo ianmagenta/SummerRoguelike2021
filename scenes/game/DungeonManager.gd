@@ -13,8 +13,6 @@ func start_dungeon() -> void:
 	grid_manager.add_entity(player)
 
 func generate_new_floor() -> void:
-	# Clear the action manager
-	Actions.clear_actions()
 	level += 1
 	floor_manager.clear_floor()
 	grid_manager.remove_entity(player)

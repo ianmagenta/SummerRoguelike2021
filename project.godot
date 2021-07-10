@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/actions/Action.gd"
 }, {
+"base": "Entity",
+"class": "Actor",
+"language": "GDScript",
+"path": "res://scenes/entities/Actor.gd"
+}, {
 "base": "Node2D",
 "class": "DungeonManager",
 "language": "GDScript",
@@ -23,6 +28,11 @@ _global_script_classes=[ {
 "class": "EndTurn",
 "language": "GDScript",
 "path": "res://scripts/actions/EndTurn.gd"
+}, {
+"base": "Actor",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://scenes/entities/Enemy.gd"
 }, {
 "base": "Node2D",
 "class": "Entity",
@@ -60,9 +70,19 @@ _global_script_classes=[ {
 "path": "res://scripts/actions/Move.gd"
 }, {
 "base": "Action",
+"class": "MoveRandomly",
+"language": "GDScript",
+"path": "res://scripts/actions/MoveRandomly.gd"
+}, {
+"base": "Action",
 "class": "Open",
 "language": "GDScript",
 "path": "res://scripts/actions/Open.gd"
+}, {
+"base": "Actor",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scenes/entities/Player.gd"
 }, {
 "base": "Node",
 "class": "PlayerController",
@@ -86,8 +106,10 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Action": "",
+"Actor": "",
 "DungeonManager": "",
 "EndTurn": "",
+"Enemy": "",
 "Entity": "",
 "FloorManager": "",
 "Game": "",
@@ -95,7 +117,9 @@ _global_script_class_icons={
 "Interactable": "",
 "LeaveFloor": "",
 "Move": "",
+"MoveRandomly": "",
 "Open": "",
+"Player": "",
 "PlayerController": "",
 "Room": "",
 "StartTurn": "",
