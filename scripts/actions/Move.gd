@@ -20,7 +20,7 @@ func execute() -> bool:
 	var move: Vector2 = entity.grid_position + direction
 	# animations
 	var entity_in_space: Entity = grid_manager.move_entity(entity, move)
-	var animation_player = entity.get_node("AnimationPlayer") as AnimationPlayer
+	var animation_player: AnimationPlayer = entity.get_node("AnimationPlayer")
 	if animation_player.is_playing(): animation_player.stop(true)
 	animation_player.play("Move", -1, 7.0)
 	# grid encounter resolution

@@ -31,15 +31,17 @@ func _ready():
 					astar.connect_points(id, astar.get_closest_point(Vector2(x, y - 1)))
 
 # For inserting new items into the database
-func add_entity(entity: Entity) -> void:
+func add_entity(entity: Entity, index=null) -> void:
 	var entity_grid_position: Vector2 = entity.grid_position
 	if !_entity_map.get(entity_grid_position) and is_position_valid(entity_grid_position):
 		var grid_point = astar.get_closest_point(entity_grid_position)
 		astar.set_point_weight_scale(grid_point, entity.astar_weight)
 		_entity_map[entity_grid_position] = entity
-		entity_manager.add_child(entity)
 		entity.position = ui_grid.map_to_world(entity_grid_position)
 		ui_grid.set_cellv(entity_grid_position, -1)
+		entity_manager.add_child(entity)
+		if index:
+			entity_manager.move_child(entity, index)
 	else:
 		printerr("Warning: entity " + entity.name + " was almost inserted at unreachable or occupied point")
 
@@ -78,6 +80,9 @@ func is_position_valid(new_position: Vector2) -> bool:
 	if map_rect.has_point(new_position) and ui_grid.get_cellv(new_position) < 1:
 		return true
 	return false
+
+func is_position_empty(the_position: Vector2) -> bool:
+	return is_position_valid(the_position) and !_entity_map.get(the_position, false)
 
 func find_valid_direction(current_position: Vector2) -> Vector2:
 	var random_directions = [Vector2(0,1), Vector2(0,-1), Vector2(1,0), Vector2(-1,0)]

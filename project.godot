@@ -89,6 +89,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/game/PlayerController.gd"
 }, {
+"base": "Reference",
+"class": "RNGTools",
+"language": "GDScript",
+"path": "res://scripts/outside_scripts/RNGTools.gd"
+}, {
 "base": "TileMap",
 "class": "Room",
 "language": "GDScript",
@@ -121,6 +126,7 @@ _global_script_class_icons={
 "Open": "",
 "Player": "",
 "PlayerController": "",
+"RNGTools": "",
 "Room": "",
 "StartTurn": "",
 "TurnLoop": ""

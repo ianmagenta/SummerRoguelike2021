@@ -12,7 +12,7 @@ func _init(data: Dictionary):
 
 func execute() -> bool:
 	var turn_loop_entity_queue: Array = turn_loop.entity_queue
-	if !turn_loop_entity_queue or turn_loop_entity_queue.front().is_in_group("player"):
+	if !turn_loop_entity_queue or turn_loop_entity_queue.back().is_in_group("player"):
 		Actions.commit_turn()
 	Actions.queue(StartTurn.new({"game": game, "entity": turn_loop.pop_turn()}))
 	return true
