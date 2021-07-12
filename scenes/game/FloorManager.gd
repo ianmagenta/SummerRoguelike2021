@@ -33,7 +33,7 @@ func _ready():
 
 func generate_floor() -> void:
 	# part 1 - decide room types and shuflle
-	RNGTools.shuffle(rooms, RNG.dungeon)
+	RNG.shuffle(rooms, RNG.dungeon)
 	
 	# part 2 - pick random room to match type
 	for room_number in range(0, rooms.size()):
@@ -42,12 +42,12 @@ func generate_floor() -> void:
 			var room_name: PackedScene
 			match room:
 				"player":
-					room_name = RNGTools.pick(player_rooms, RNG.dungeon)
+					room_name = RNG.pick(player_rooms, RNG.dungeon)
 					player_room_number = room_number
 				"normal":
-					room_name = RNGTools.pick(normal_rooms, RNG.dungeon)
+					room_name = RNG.pick(normal_rooms, RNG.dungeon)
 				"exit":
-					room_name = RNGTools.pick(exit_rooms, RNG.dungeon)
+					room_name = RNG.pick(exit_rooms, RNG.dungeon)
 			# part 3 - spawn entities in room
 			var room_instance: Room = room_name.instance()
 			var entities = room_instance.collect_entites(floor_entities)
