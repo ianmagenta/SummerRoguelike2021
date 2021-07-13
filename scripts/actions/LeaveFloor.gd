@@ -18,6 +18,7 @@ func execute() -> bool:
 		Actions.clear_actions()
 		dungeon_manager.generate_new_floor()
 		turn_loop.entity_queue.clear()
+		Orphans.free_all()
 		return false
 	else:
 		interacting_entity_index = interacting_entity.get_index()

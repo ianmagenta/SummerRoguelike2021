@@ -142,6 +142,7 @@ config/icon="res://icon.png"
 
 Actions="*res://scripts/singletons/Actions.gd"
 RNG="*res://scripts/singletons/RNG.gd"
+Orphans="*res://scripts/singletons/Orphans.gd"
 
 [display]
 

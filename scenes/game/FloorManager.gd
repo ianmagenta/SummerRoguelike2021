@@ -56,6 +56,7 @@ func generate_floor() -> void:
 				entity.grid_position += room_offsets[room_number]
 				if entity.is_in_group("player"):
 					player_spawn_point = entity.grid_position
+					entity.free()
 					continue
 				grid_manager.add_entity(entity)
 			break

@@ -14,7 +14,9 @@ func _init(data: Dictionary):
 func execute() -> bool:
 	interactable_index = interactable.get_index()
 	grid_manager.remove_entity(interactable)
+	Orphans.add(interactable)
 	return true
 
 func undo() -> void:
+	Orphans.remove()
 	grid_manager.add_entity(interactable, interactable_index)
