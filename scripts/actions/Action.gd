@@ -1,10 +1,16 @@
 class_name Action
 
-func execute() -> bool:
-	return false
+var failed := false
+var commands := []
+
+func execute() -> void:
+	for command in commands:
+		(command as Action).execute()
 
 func undo() -> void:
-	pass
+	while commands:
+		var command: Action = commands.pop_back()
+		command.undo()
 
 func _to_string():
 	return "Action"

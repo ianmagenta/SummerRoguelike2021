@@ -15,7 +15,8 @@ func _ready():
 	start_turn()
 
 func _on_player_request_move(move: Vector2, player: Entity) -> void:
-	Actions.queue(Move.new({"game": self, "entity": player, "direction": move}))
+	var data := {"game": self, "entity": player, "direction": move}
+	Actions.queue(Move.new(data))
 
 func start_turn() -> void:
 	var entity_to_start: Entity = turn_loop.pop_turn()

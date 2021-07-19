@@ -15,8 +15,7 @@ func queue(action: Action) -> void:
 		processing = true
 		for action in incoming_actions:
 			processed_actions.push_back(action)
-			if !action.execute():
-				processed_actions.pop_back()
+			action.execute()
 		incoming_actions.clear()
 		if actions_cleared == true:
 			_turn_stack.clear()

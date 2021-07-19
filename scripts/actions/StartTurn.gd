@@ -1,28 +1,18 @@
 extends Action
 class_name StartTurn
 
-var player_controller: PlayerController
-var entity: Entity
-var game
+var data: Dictionary
 
-func _init(data: Dictionary):
-	player_controller = data.game.player_controller
-	entity = data.entity
-	game = data.game
+func _init(incoming_data: Dictionary):
+	data = incoming_data
 
-func execute() -> bool:
-	if entity.is_in_group("player"):
-		player_controller.has_turn = true
-		player_controller.controlled_entity = entity
-	elif entity.is_in_group("enemy"):
-		entity.take_turn({"game": game})
-	return true
-
-func undo() -> void:
-	if entity.is_in_group("player"):
-		player_controller.has_turn = false
-		player_controller.controlled_entity = null
-
+func execute() -> void:
+	var entity = data.entity
+	entity.has_turn = true
+	if entity.is_in_group("actor"):
+		data.queue = self.commands
+		entity.take_turn(data)
+		.execute()
 
 func _to_string():
 	return "StartTurn"

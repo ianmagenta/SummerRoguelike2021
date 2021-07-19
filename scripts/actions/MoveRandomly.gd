@@ -1,30 +1,29 @@
 extends Action
 class_name MoveRandomly
 
-var entity: Entity
-var grid_manager: GridManager
-var ai_rng_state: int
-var game
+var data: Dictionary
 
-func _init(data: Dictionary):
-	entity = data.entity
-	grid_manager = data.game.grid_manager
-	game = data.game
+func _init(incoming_data: Dictionary):
+	data = incoming_data
 
-func execute() -> bool:
+func execute() -> void:
+	var entity: Entity = data.entity
+	var grid_manager: GridManager = data.game.grid_manager
 	var directions: Array = [Vector2(0,1), Vector2(0,-1), Vector2(1,0), Vector2(-1,0)]
-	var entity_grid_position = entity.grid_position
-	ai_rng_state = RNG.ai.state
+	var entity_grid_position: Vector2 = entity.grid_position
+	data.ai_rng_state = RNG.ai.state
 	RNG.shuffle(directions, RNG.ai)
 	while directions:
 		var direction = directions.pop_back()
 		if grid_manager.is_position_valid(entity_grid_position + direction):
-			Actions.queue(Move.new({"game": game, "entity": entity, "direction": direction}))
+			data.direction = direction
+			commands.append(Move.new(data))
 			break
-	return true
+	.execute()
 
 func undo() -> void:
-	RNG.ai.state = ai_rng_state
+	RNG.ai.state = data.ai_rng_state
+	.undo()
 
 func _to_string():
-	return "MoveRandomly " + entity._to_string()
+	return "MoveRandomly " + data.entity._to_string()

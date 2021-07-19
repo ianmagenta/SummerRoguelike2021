@@ -1,22 +1,17 @@
 extends Action
 class_name Open
 
-var interacting_entity: Entity
-var interactable: Entity
-var interactable_index: int
-var grid_manager: GridManager
+var data: Dictionary
 
-func _init(data: Dictionary):
-	interacting_entity = data.interacting_entity
-	interactable = data.interactable
-	grid_manager = data.game.grid_manager
+func _init(incoming_data: Dictionary):
+	data = incoming_data
 
-func execute() -> bool:
-	interactable_index = interactable.get_index()
-	grid_manager.remove_entity(interactable)
+func execute() -> void:
+	var interactable = data.interactable
+	data.interactable_index = interactable.get_index()
+	data.game.grid_manager.remove_entity(interactable)
 	Orphans.add(interactable)
-	return true
 
 func undo() -> void:
 	Orphans.remove()
-	grid_manager.add_entity(interactable, interactable_index)
+	data.game.grid_manager.add_entity(data.interactable, data.interactable_index)

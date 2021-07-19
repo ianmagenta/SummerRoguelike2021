@@ -1,23 +1,15 @@
 extends Action
 class_name Move
 
-var grid_manager: GridManager
-var entity: Entity
-var direction: Vector2
-var turn_loop: TurnLoop
-var player_controller: PlayerController
-var game
+var data: Dictionary
 
-func _init(data: Dictionary):
-	player_controller = data.game.player_controller
-	turn_loop = data.game.turn_loop
-	grid_manager = data.game.grid_manager
-	entity = data.entity
-	direction = data.direction
-	game = data.game
+func _init(incoming_data: Dictionary):
+	data = incoming_data
 
-func execute() -> bool:
-	var move: Vector2 = entity.grid_position + direction
+func execute() -> void:
+	var entity = data.entity
+	var grid_manager = data.game.grid_manager
+	var move: Vector2 = entity.grid_position + data.direction
 	# animations
 	var entity_in_space: Entity = grid_manager.move_entity(entity, move)
 	var animation_player: AnimationPlayer = entity.get_node("AnimationPlayer")
@@ -27,15 +19,22 @@ func execute() -> bool:
 	if grid_manager.is_position_valid(move):
 		if entity_in_space:
 			if entity_in_space.is_in_group("interactable"):
-				(entity_in_space as Interactable).interact({"game": game, "interacting_entity": entity})
-			Actions.queue(EndTurn.new({"game": game}))
+				data.interactable = entity_in_space
+				data.queue = self.commands
+				(entity_in_space as Interactable).interact(data)
+			commands.append(EndTurn.new(data))
 		else:
-			Actions.queue(EndTurn.new({"game": game}))
-			return true
-	return false
+			commands.append(EndTurn.new(data))
+			.execute()
+			return
+	failed = true
+	.execute()
 
 func undo() -> void:
-	grid_manager.move_entity(entity, entity.grid_position - direction)
+	if !failed:
+		var entity = data.entity
+		data.game.grid_manager.move_entity(entity, entity.grid_position - data.direction)
+	.undo()
 
 func _to_string():
 	return "Move"
