@@ -19,6 +19,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/entities/Actor.gd"
 }, {
+"base": "Action",
+"class": "Attack",
+"language": "GDScript",
+"path": "res://scripts/actions/Attack.gd"
+}, {
+"base": "Interactable",
+"class": "Corpse",
+"language": "GDScript",
+"path": "res://scenes/entities/interactables/Corpse.gd"
+}, {
+"base": "Action",
+"class": "Die",
+"language": "GDScript",
+"path": "res://scripts/actions/Die.gd"
+}, {
 "base": "Node2D",
 "class": "DungeonManager",
 "language": "GDScript",
@@ -112,6 +127,9 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Action": "",
 "Actor": "",
+"Attack": "",
+"Corpse": "",
+"Die": "",
 "DungeonManager": "",
 "EndTurn": "",
 "Enemy": "",

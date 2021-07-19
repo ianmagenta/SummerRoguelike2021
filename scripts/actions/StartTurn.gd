@@ -10,7 +10,7 @@ func execute() -> void:
 	var entity = data.entity
 	entity.has_turn = true
 	if entity.is_in_group("actor"):
-		data.queue = self.commands
+		data.commands = self.commands
 		entity.take_turn(data)
 		.execute()
 

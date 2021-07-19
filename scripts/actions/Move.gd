@@ -18,13 +18,19 @@ func execute() -> void:
 	# grid encounter resolution
 	if grid_manager.is_position_valid(move):
 		if entity_in_space:
-			if entity_in_space.is_in_group("interactable"):
-				data.interactable = entity_in_space
-				data.queue = self.commands
+			if entity_in_space.is_in_group("actor"):
+				data.target_entity = entity_in_space
+				data.commands = self.commands
+				commands.append(Attack.new(data))
+			elif entity_in_space.is_in_group("interactable"):
+				data.target_entity = entity_in_space
+				data.commands = self.commands
 				(entity_in_space as Interactable).interact(data)
-			commands.append(EndTurn.new(data))
+			if entity.is_in_group("actor"):
+				commands.append(EndTurn.new(data))
 		else:
-			commands.append(EndTurn.new(data))
+			if entity.is_in_group("actor"):
+				commands.append(EndTurn.new(data))
 			.execute()
 			return
 	failed = true
