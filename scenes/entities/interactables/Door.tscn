@@ -16,4 +16,6 @@ self_modulate = Color( 0.580392, 0.345098, 0.282353, 1 )
 texture = ExtResource( 3 )
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." index="2"]
+light_mask = 2
 occluder = SubResource( 1 )
+light_mask = 2
