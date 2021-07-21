@@ -15,24 +15,34 @@ func execute() -> void:
 	var target_entity_sprite: Sprite = target_entity.get_node("Sprite")
 	corpse_sprite.self_modulate = target_entity_sprite.self_modulate
 	corpse.entity = target_entity
-	data.target_entity_index = target_entity.get_index()
+	var target_entity_index = target_entity.get_index()
+	data.target_entity_index = target_entity_index
 	corpse.grid_position = target_entity.grid_position
-	grid_manager.remove_entity(target_entity)
-	grid_manager.add_entity(corpse)
 	(data.game.turn_loop.entity_queue as Array).erase(target_entity)
 	if target_entity.is_in_group("player"):
 		corpse_sprite.texture = preload("res://resources/atlas_textures/tombstone.tres")
-		corpse.get_node("Light2D").visible = true
-		if !grid_manager.get_tree().get_nodes_in_group("player"):
-			print("game over state") # from here, probably add this data to data (as well as the speicifc player affected and then take action in end turn.
+		var light = target_entity.get_node("Light2D")
+		target_entity.remove_child(light)
+		corpse.add_child(light)
 	else:
 		corpse_sprite.texture = preload("res://resources/atlas_textures/skull.tres")
+	grid_manager.remove_entity(target_entity)
+	grid_manager.add_entity(corpse, target_entity_index)
+	var animation_player: AnimationPlayer = corpse.get_node("AnimationPlayer")
+	if animation_player.is_playing(): animation_player.stop(true)
+	animation_player.play("Move", -1, 7.0)
+	if target_entity.is_in_group("player") and !grid_manager.get_tree().get_nodes_in_group("player"):
+		Globals.game_state = Globals.State.GAME_OVER
 	
 
 func undo() -> void:
 	var corpse = data.corpse
 	var grid_manager: GridManager = data.game.grid_manager
 	var target_entity: Entity = data.target_entity
+	if target_entity.is_in_group("player"):
+		var light = corpse.get_node("Light2D")
+		corpse.remove_child(light)
+		target_entity.add_child(light)
 	target_entity.grid_position = corpse.grid_position
 	grid_manager.remove_entity(corpse)
 	grid_manager.add_entity(target_entity, data.target_entity_index)

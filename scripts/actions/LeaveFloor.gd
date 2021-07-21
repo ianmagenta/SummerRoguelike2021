@@ -10,10 +10,7 @@ func execute() -> void:
 	var interacting_entity = data.entity
 	var dungeon_manager = data.game.dungeon_manager
 	if interacting_entity.is_in_group("player"):
-		Actions.clear_actions()
-		dungeon_manager.generate_new_floor()
-		data.game.turn_loop.entity_queue.clear()
-		Orphans.free_all()
+		Globals.game_state = Globals.State.LEAVE_FLOOR
 		failed = true
 	else:
 		data.interacting_entity_index = interacting_entity.get_index()

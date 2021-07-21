@@ -12,3 +12,7 @@ func pop_turn() -> Entity:
 		enemies.invert()
 		entity_queue = enemies + players
 	return entity_queue.pop_back()
+
+func _input(event):
+	if event.is_action_pressed("ui_home"):
+		print(entity_queue)

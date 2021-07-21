@@ -3,16 +3,18 @@ extends Node
 var dungeon: RandomNumberGenerator = RandomNumberGenerator.new()
 var ai: RandomNumberGenerator = RandomNumberGenerator.new()
 
-var player_seed: String
+var player_seed: String = "carl"
+var actual_seed: int
 
 func start_rng() -> void:
 	if !player_seed:
 		dungeon.randomize()
-		ai.randomize()
+		actual_seed = dungeon.seed
+		ai.seed = actual_seed
 	else:
-		var new_seed = hash(player_seed)
-		dungeon.seed = new_seed
-		ai.seed = new_seed
+		actual_seed = hash(player_seed)
+		dungeon.seed = actual_seed
+		ai.seed = actual_seed
 
 func shuffle(array: Array, rng: RandomNumberGenerator):
 	var n: int = array.size();

@@ -10,6 +10,7 @@ onready var turn_loop = get_node("TurnLoop")
 func _ready():
 	Actions.connect("turn_undone", self, "start_turn")
 	player_controller.connect("player_request_move", self, "_on_player_request_move")
+	player_controller.connect("player_called_undo", self, "_on_player_called_undo")
 	RNG.start_rng()
 	dungeon_manager.start_dungeon()
 	start_turn()
@@ -21,3 +22,8 @@ func _on_player_request_move(move: Vector2, player: Entity) -> void:
 func start_turn() -> void:
 	var entity_to_start: Entity = turn_loop.pop_turn()
 	Actions.queue(StartTurn.new({"game": self, "entity": entity_to_start}))
+
+func _on_player_called_undo():
+	if Actions.can_be_undone():
+		turn_loop.entity_queue.clear()
+		Actions.undo_turn()
