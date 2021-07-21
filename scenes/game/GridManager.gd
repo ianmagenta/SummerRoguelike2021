@@ -84,6 +84,9 @@ func is_position_valid(new_position: Vector2) -> bool:
 func is_position_empty(the_position: Vector2) -> bool:
 	return is_position_valid(the_position) and !_entity_map.get(the_position, false)
 
+func get_entity_at_position(the_position: Vector2) -> Entity:
+	return _entity_map.get(the_position)
+
 func find_valid_direction(current_position: Vector2) -> Vector2:
 	var random_directions = [Vector2(0,1), Vector2(0,-1), Vector2(1,0), Vector2(-1,0)]
 	random_directions.shuffle()

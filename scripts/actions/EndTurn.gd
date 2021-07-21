@@ -16,16 +16,16 @@ func execute() -> void:
 		var new_data = {game = data.game, entity = turn_loop.pop_turn()}
 		Actions.queue(StartTurn.new(new_data))
 	elif Globals.game_state == Globals.State.GAME_OVER:
-		Actions.commit_turn()
 		Globals.game_state = Globals.State.NONE
+		Actions.commit_turn()
 		data.game.player_controller.death_state = true
 	elif Globals.game_state == Globals.State.LEAVE_FLOOR:
+		Globals.game_state = Globals.State.NONE
 		Actions.clear_actions()
 		data.game.dungeon_manager.generate_new_floor()
 		Orphans.free_all()
 		data.game.turn_loop.entity_queue.clear()
 		var new_data = {game = data.game, entity = turn_loop.pop_turn()}
-		Globals.game_state = Globals.State.NONE
 		Actions.queue(StartTurn.new(new_data))
 
 func undo() -> void:

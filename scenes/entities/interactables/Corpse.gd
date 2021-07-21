@@ -8,7 +8,8 @@ func interact(data: Dictionary) -> void:
 	var new_position = data.direction + grid_position
 	if grid_manager.is_position_valid(new_position):
 		data.commands.append(Move.new({game = data.game, entity = self, direction = data.direction}))
-		if !grid_manager.is_position_empty(new_position):
+		var entity_at_position: Entity = grid_manager.get_entity_at_position(new_position)
+		if entity_at_position and !entity_at_position.is_in_group("interactable"):
 			data.commands.append(Destory.new(data))
 	else:
 		data.commands.append(Destory.new(data))
@@ -17,3 +18,6 @@ func free():
 	if entity:
 		entity.free()
 	.free()
+
+func _to_string():
+	return str("Corpse ", get_instance_id()) 
