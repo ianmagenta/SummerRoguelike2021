@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://scenes/entities/interactables/Corpse.gd"
 }, {
 "base": "Action",
+"class": "Destory",
+"language": "GDScript",
+"path": "res://scripts/actions/Destroy.gd"
+}, {
+"base": "Action",
 "class": "Die",
 "language": "GDScript",
 "path": "res://scripts/actions/Die.gd"
@@ -129,6 +134,7 @@ _global_script_class_icons={
 "Actor": "",
 "Attack": "",
 "Corpse": "",
+"Destory": "",
 "Die": "",
 "DungeonManager": "",
 "EndTurn": "",
