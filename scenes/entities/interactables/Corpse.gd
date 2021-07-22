@@ -18,6 +18,3 @@ func free():
 	if entity:
 		entity.free()
 	.free()
-
-func _to_string():
-	return str("Corpse ", get_instance_id()) 

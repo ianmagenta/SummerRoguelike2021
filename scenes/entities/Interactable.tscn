@@ -7,3 +7,4 @@
 "interactable",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+entity_name = "Interactable"

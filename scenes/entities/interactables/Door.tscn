@@ -10,6 +10,8 @@ polygon = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [node name="Door" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+entity_name = "Door"
+color = Color( 0.580392, 0.345098, 0.282353, 1 )
 
 [node name="Sprite" parent="." index="0"]
 self_modulate = Color( 0.580392, 0.345098, 0.282353, 1 )

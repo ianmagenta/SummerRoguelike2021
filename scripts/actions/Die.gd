@@ -12,8 +12,7 @@ func execute() -> void:
 	var corpse = data.corpse
 	var corpse_sprite: Sprite = corpse.get_node("Sprite")
 	var target_entity: Entity = data.target_entity
-	var target_entity_sprite: Sprite = target_entity.get_node("Sprite")
-	corpse_sprite.self_modulate = target_entity_sprite.self_modulate
+	corpse.color = target_entity.color
 	corpse.entity = target_entity
 	var target_entity_index = target_entity.get_index()
 	data.target_entity_index = target_entity_index

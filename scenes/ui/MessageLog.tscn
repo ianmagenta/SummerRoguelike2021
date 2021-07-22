@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/ui/Window.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/ui/MessageLog.gd" type="Script" id=2]
+[ext_resource path="res://resources/fonts/AweMono.tres" type="DynamicFont" id=3]
+[ext_resource path="res://resources/themes/game_ui.tres" type="Theme" id=4]
+
+[node name="MessageLog" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Label" parent="VBoxContainer/HBoxContainer" index="2"]
+margin_right = 112.0
+text = "Message Log"
+
+[node name="MessageBlock" type="RichTextLabel" parent="VBoxContainer" index="2"]
+margin_top = 20.0
+margin_right = 128.0
+margin_bottom = 140.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 4 )
+custom_fonts/mono_font = ExtResource( 3 )
+custom_colors/default_color = Color( 0.72549, 0.709804, 0.764706, 1 )
+bbcode_enabled = true
+bbcode_text = "[font=resources/fonts/AweMono.tres]You begin your adventure...[/font]"
+text = "You begin your adventure..."
+scroll_following = true
+
+[node name="Tween" type="Tween" parent="." index="1"]

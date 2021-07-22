@@ -41,7 +41,3 @@ func can_be_undone() -> bool:
 	if _turn_stack:
 		return true
 	return false
-
-func _input(event):
-	if event.is_action_pressed("ui_home"):
-		print(_turn_stack, processed_actions, incoming_actions)

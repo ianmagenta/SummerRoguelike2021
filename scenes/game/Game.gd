@@ -6,6 +6,7 @@ onready var dungeon_manager = get_node("DungeonManager")
 onready var floor_manager = dungeon_manager.get_node("FloorManager")
 onready var grid_manager = floor_manager.get_node("GridManager")
 onready var turn_loop = get_node("TurnLoop")
+onready var message_log = get_node("UI/MessageLog")
 
 func _ready():
 	Actions.connect("turn_undone", self, "start_turn")
@@ -25,5 +26,6 @@ func start_turn() -> void:
 
 func _on_player_called_undo():
 	if Actions.can_be_undone():
+		message_log.add_message(str(player_controller.controlled_entity.get_bbcode_name(), " undid a turn!"))
 		turn_loop.entity_queue.clear()
 		Actions.undo_turn()

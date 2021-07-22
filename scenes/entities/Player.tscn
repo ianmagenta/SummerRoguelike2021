@@ -10,6 +10,9 @@
 ] instance=ExtResource( 1 )]
 light_mask = 1
 script = ExtResource( 3 )
+entity_name = "Player"
+determiner = "The"
+color = Color( 0.952941, 0.815686, 0.25098, 1 )
 
 [node name="Sprite" parent="." index="0"]
 self_modulate = Color( 0.952941, 0.815686, 0.25098, 1 )

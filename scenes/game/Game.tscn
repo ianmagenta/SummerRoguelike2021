@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://resources/tile_sets/main.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/game/GridManager.gd" type="Script" id=2]
 [ext_resource path="res://scenes/game/PlayerController.gd" type="Script" id=3]
+[ext_resource path="res://resources/fonts/AweMono.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/game/Game.gd" type="Script" id=5]
 [ext_resource path="res://scenes/game/FloorManager.gd" type="Script" id=6]
 [ext_resource path="res://scenes/game/TurnLoop.gd" type="Script" id=7]
 [ext_resource path="res://scenes/game/DungeonManager.gd" type="Script" id=8]
+[ext_resource path="res://scenes/ui/MessageLog.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 5 )
@@ -19,6 +21,45 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LevelName" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -32.0
+margin_right = 40.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.72549, 0.709804, 0.764706, 1 )
+text = "The Caves"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FloorNumber" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -36.0
+margin_top = -34.0
+margin_right = 36.0
+margin_bottom = -8.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.72549, 0.709804, 0.764706, 1 )
+text = "Floor 1"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MessageLog" parent="UI" instance=ExtResource( 9 )]
+margin_left = 488.0
+margin_top = 184.0
+margin_right = 616.0
+margin_bottom = 324.0
+
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource( 3 )
 
@@ -26,6 +67,7 @@ script = ExtResource( 3 )
 script = ExtResource( 7 )
 
 [node name="DungeonManager" type="Node2D" parent="."]
+show_behind_parent = true
 script = ExtResource( 8 )
 
 [node name="FloorManager" type="Node2D" parent="DungeonManager"]
