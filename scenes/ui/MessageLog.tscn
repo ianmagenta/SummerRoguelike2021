@@ -14,15 +14,15 @@ text = "Message Log"
 
 [node name="MessageBlock" type="RichTextLabel" parent="VBoxContainer" index="2"]
 margin_top = 20.0
-margin_right = 128.0
+margin_right = 136.0
 margin_bottom = 140.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 4 )
-custom_fonts/mono_font = ExtResource( 3 )
+custom_fonts/normal_font = ExtResource( 3 )
 custom_colors/default_color = Color( 0.72549, 0.709804, 0.764706, 1 )
 bbcode_enabled = true
-bbcode_text = "[font=resources/fonts/AweMono.tres]You begin your adventure...[/font]"
+bbcode_text = "You begin your adventure..."
 text = "You begin your adventure..."
 scroll_following = true
 

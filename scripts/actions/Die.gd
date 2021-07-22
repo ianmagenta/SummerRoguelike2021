@@ -12,6 +12,7 @@ func execute() -> void:
 	var corpse = data.corpse
 	var corpse_sprite: Sprite = corpse.get_node("Sprite")
 	var target_entity: Entity = data.target_entity
+	data.game.message_log.add_message(str(target_entity.get_bbcode_name(), " died."))
 	corpse.color = target_entity.color
 	corpse.entity = target_entity
 	var target_entity_index = target_entity.get_index()

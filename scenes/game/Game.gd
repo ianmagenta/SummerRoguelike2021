@@ -26,6 +26,6 @@ func start_turn() -> void:
 
 func _on_player_called_undo():
 	if Actions.can_be_undone():
-		message_log.add_message(str(player_controller.controlled_entity.get_bbcode_name(), " undid a turn!"))
+		message_log.add_message(str(player_controller.controlled_entity.get_bbcode_name(), " undid a turn."))
 		turn_loop.entity_queue.clear()
 		Actions.undo_turn()

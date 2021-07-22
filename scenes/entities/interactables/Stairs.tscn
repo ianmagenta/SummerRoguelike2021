@@ -7,6 +7,7 @@
 [node name="Stairs" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 entity_name = "Stairs"
+determiner = "The"
 color = Color( 0.839216, 0.603922, 0.305882, 1 )
 
 [node name="Sprite" parent="." index="0"]

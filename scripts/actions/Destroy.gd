@@ -10,6 +10,7 @@ func execute() -> void:
 	var grid_manager: GridManager = data.game.grid_manager
 	var target_entity: Entity = data.target_entity
 	var target_entity_index: int = target_entity.get_index()
+	data.game.message_log.add_message(str(data.entity.get_bbcode_name(), " destroyed ", target_entity.get_bbcode_name(false), "."))
 	data.target_entity_index = target_entity_index
 	grid_manager.remove_entity(target_entity)
 	Orphans.add(target_entity)

@@ -3,12 +3,10 @@ class_name MessageLog
 
 var _message_queue := []
 var processing_messages := false
+var previous_message: Dictionary = {text = "", count =  1}
 
 onready var tween: Tween = get_node("Tween")
 onready var message_block: RichTextLabel = get_node("VBoxContainer/MessageBlock")
-
-func _ready():
-	message_block.push_mono()
 
 func add_message(new_message: String) -> void:
 	_message_queue.append(new_message)
@@ -21,17 +19,21 @@ func pop_message() -> void:
 func _write_messages() -> void:
 	processing_messages = true
 	for message in _message_queue:
-		message_block.newline()
-		var old_character_count = message_block.get_total_character_count()
-		message_block.append_bbcode(message)
-		# Yeah, this doesn't work for some reason without waiting 2 (yes, exactly 2) frames.
-		yield(get_tree(), "idle_frame")
-		yield(get_tree(), "idle_frame")
-		var updated_character_count = message_block.get_total_character_count()
-		message_block.visible_characters = old_character_count
-		tween.interpolate_property(message_block, "visible_characters", old_character_count, updated_character_count, 0.25, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-		tween.start()
-		yield(tween, "tween_all_completed")
+		if message == previous_message.text:
+			var previous_message_count = previous_message.count
+			if previous_message_count == 1:
+				message_block.bbcode_text += "\n"
+			if previous_message_count > 1:
+				var old_counter = str("(x ", previous_message_count, ")")
+				var old_text = message_block.bbcode_text.trim_suffix(old_counter)
+				message_block.bbcode_text = old_text
+			previous_message.count += 1
+			message_block.bbcode_text += str("(x ", previous_message.count, ")")
+		else:
+			message_block.bbcode_text += "\n\n"
+			previous_message.text = message
+			previous_message.count = 1
+			message_block.bbcode_text += "- " + message
 	_message_queue.clear()
 	processing_messages = false
 
