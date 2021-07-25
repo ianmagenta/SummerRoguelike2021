@@ -69,6 +69,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/game/Game.gd"
 }, {
+"base": "Label",
+"class": "GameTimer",
+"language": "GDScript",
+"path": "res://scenes/game/Timer.gd"
+}, {
 "base": "Node2D",
 "class": "GridManager",
 "language": "GDScript",
@@ -152,6 +157,7 @@ _global_script_class_icons={
 "Entity": "",
 "FloorManager": "",
 "Game": "",
+"GameTimer": "",
 "GridManager": "",
 "Interactable": "",
 "LeaveFloor": "",
@@ -190,6 +196,10 @@ window/size/test_width=1280
 window/size/test_height=720
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[gui]
+
+timers/tooltip_delay_sec=0.05
 
 [importer_defaults]
 

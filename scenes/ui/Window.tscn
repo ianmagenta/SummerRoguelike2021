@@ -2,29 +2,8 @@
 
 [ext_resource path="res://resources/fonts/AweMono.tres" type="DynamicFont" id=1]
 [ext_resource path="res://resources/atlas_textures/info.tres" type="Texture" id=2]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.137255, 0.129412, 0.239216, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0.72549, 0.709804, 0.764706, 1 )
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_left = 4.0
-expand_margin_right = 4.0
-expand_margin_top = 4.0
-expand_margin_bottom = 4.0
-anti_aliasing = false
-
-[sub_resource type="StyleBoxLine" id=2]
-color = Color( 0.72549, 0.709804, 0.764706, 1 )
-grow_begin = 2.0
-thickness = 2
-vertical = true
+[ext_resource path="res://resources/themes/window.tres" type="StyleBox" id=3]
+[ext_resource path="res://resources/themes/v_sep.tres" type="StyleBox" id=4]
 
 [sub_resource type="StyleBoxLine" id=3]
 color = Color( 0.94902, 0.94902, 0.941176, 1 )
@@ -35,14 +14,14 @@ thickness = 2
 [node name="Window" type="Panel"]
 margin_right = 136.0
 margin_bottom = 140.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 136.0
-margin_bottom = 140.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 custom_constants/separation = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -56,13 +35,16 @@ margin_bottom = 16.0
 self_modulate = Color( 0.72549, 0.709804, 0.764706, 1 )
 margin_right = 16.0
 margin_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource( 2 )
+flip_h = true
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 20.0
 margin_right = 20.0
 margin_bottom = 16.0
-custom_styles/separator = SubResource( 2 )
+custom_styles/separator = ExtResource( 4 )
 custom_constants/separation = 0
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]

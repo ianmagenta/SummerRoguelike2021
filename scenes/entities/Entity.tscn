@@ -44,3 +44,10 @@ centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Move = SubResource( 1 )
+
+[node name="Tooltip" type="Control" parent="."]
+margin_right = 16.0
+margin_bottom = 16.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

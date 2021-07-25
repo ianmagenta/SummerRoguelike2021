@@ -21,3 +21,6 @@ func get_bbcode_name(capitalize_determiner=true) -> String:
 
 func _to_string():
 	return entity_name
+
+func _ready():
+	get_node("Tooltip").hint_tooltip = get_bbcode_name()

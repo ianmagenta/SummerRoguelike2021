@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/themes/window.tres" type="StyleBox" id=1]
+[ext_resource path="res://resources/fonts/AweMono.tres" type="DynamicFont" id=2]
+[ext_resource path="res://resources/themes/v_sep.tres" type="StyleBox" id=3]
+
+[node name="TitleBar" type="Panel"]
+margin_right = 260.0
+margin_bottom = 16.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 5
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FloorName" type="Label" parent="HBoxContainer"]
+margin_left = 4.0
+margin_top = 1.0
+margin_right = 84.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.72549, 0.709804, 0.764706, 1 )
+text = "Floor Name"
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+margin_left = 89.0
+margin_right = 93.0
+margin_bottom = 16.0
+custom_styles/separator = ExtResource( 3 )
+
+[node name="FloorNumber" type="Label" parent="HBoxContainer"]
+margin_left = 98.0
+margin_top = 1.0
+margin_right = 178.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.72549, 0.709804, 0.764706, 1 )
+text = "Floor - XX"
+
+[node name="VSeparator2" type="VSeparator" parent="HBoxContainer"]
+margin_left = 183.0
+margin_right = 187.0
+margin_bottom = 16.0
+custom_styles/separator = ExtResource( 3 )
+
+[node name="Timer" type="Label" parent="HBoxContainer"]
+margin_left = 192.0
+margin_top = 1.0
+margin_right = 256.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.72549, 0.709804, 0.764706, 1 )
+text = "00:00:00"
